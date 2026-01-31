@@ -1,0 +1,4 @@
+.card-img-top{
+    height: 350px;  /* limita a altura,o tamanho do card na altura */
+    object-fit: cover; /* COVER corta a imagem na forma do card, tem o container, ele ajusta a imagem ao tamho do card */
+}
