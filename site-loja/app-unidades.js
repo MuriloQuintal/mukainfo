@@ -16,7 +16,7 @@ function fnMontarCardProduto(unidade){
                     <img src="${unidade.foto}"
                         class="card-img-top" alt="${unidade.nome_da_loja}">
                     <div class="card-body">
-                        <h5 class="card-title">${unidade.titulo}</h5>
+                        <h5 class="card-title">${unidade.nome_da_loja}</h5>
                         <p class="card-text">${unidade.telefone}</p>
                         <div class="d-flex justify-content-between align-items-center">
                             <span class="h5 mb-0">R$ ${unidade.endereco}</span>
