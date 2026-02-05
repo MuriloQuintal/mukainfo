@@ -18,23 +18,19 @@ function fnMontarCardProduto(unidade){
                     <div class="card-body">
                         <h5 class="card-title">${unidade.nome_da_loja}</h5>
                         <p class="card-text">${unidade.telefone}</p>
+                         <p class="card-text">${unidade.email}</p>
                         <div class="d-flex justify-content-between align-items-center">
-                            <span class="h5 mb-0">R$ ${unidade.endereco}</span>
-                            <div>
-                                <i class="bi bi-star-fill text-warning"></i>
-                                <i class="bi bi-star-fill text-warning"></i>
-                                <i class="bi bi-star-fill text-warning"></i>
-                                <i class="bi bi-star-fill text-warning"></i>
-                                <i class="bi bi-star text-warning"></i>
-                                <small class="text-muted">(${unidade.telefone})</small>
-                            </div>
+                            <span class="h5 mb-0">${unidade.endereco}</span>
+                                    <div>
+                                     <p class="h6">Latitude${unidade.latitude}</p>
+                                    <p class="h6">Longitude${unidade.longitude}</p>
+                                    </div>
                         </div>
                     </div>
-                    <div class="card-footer d-flex justify-content-between bg-light">
-                        <button class="btn btn-primary btn-sm">Comprar</button>
-                        <button class="btn btn-outline-secondary btn-sm"><i class="bi bi-heart"></i></button>
-                    </div>
-                </div>
+                     <div class="map">MAPA
+                     </div>
+                 </div>
+                   
             </div>
     `
     document.querySelector(".unidades").innerHTML += cartao

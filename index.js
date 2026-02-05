@@ -1,6 +1,7 @@
 const express = require('express')
 const app = express()
 
+
 // Indica que todas as requisições podem receber Body em JSON. A partir disso,
 //  o Express aplica um JSON. parse para o conteúdo recebido
 
