@@ -12,7 +12,32 @@ app.get('/',function(req,res){
     res.send('MukaInfo')
 })
 
-const lista_produtos = require('./dados.json')
+//const lista_produtos = require('./dados.json’)
+
+let mysql = require('mysql')
+// let conexao = mysql.createConnection({
+//     host: "localhost",
+//     user: "root",
+//     password: "",
+//     database: "bd_loja"
+// })
+
+
+let conexao = mysql.createConnection({
+    host: "108.179.193.209",
+    user: "gutoxa27_alunos",
+    password: "JD_eXLNHp1ZG",
+    database: "gutoxa27_bd_loja"
+})
+
+conexao.connect(function(erro){
+    if (erro){
+        console.log("Deu ruim na conexao \n");
+        throw erro;
+    } else {
+        console.log("Conexão deu bom \n")
+    }
+})
 // const lista_produtos = [
 //     {
 //         "titulo": "Red Nike",
@@ -40,8 +65,23 @@ const lista_produtos = require('./dados.json')
 //Read All - [GET] / produtos
 app.get("/produtis", function (req, res) {
     res.setHeader('Access-Control-Allow-Origin','*')
-    res.send(lista_produtos)
+    //res.send(lista_produtos)
+    conexao.query("select * from produtos", function (erro, lista_produtos, campos){
+        console.log(lista_produtos);
+        res.send(lista_produtos)
+    })
 })
+
+app.get("/unidades", function (req, res) {
+    res.setHeader('Access-Control-Allow-Origin','*')
+    //res.send(lista_produtos)
+    conexao.query("select * from unidades", function (erro, unidades, campos){
+        console.log(unidades);
+        res.send(unidades)
+    })
+})
+
+
 
 
 
