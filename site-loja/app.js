@@ -16,6 +16,14 @@ function fnCarregarDados(){
     .catch(erro => console.log(erro.message))
 }
 
+// function fnMudarOrdem(valor) {
+//     const url = new URL(window.location.href);
+//     url.searchParams.set('ordem', valor); // Adiciona ou atualiza o ?ordem=...
+//     window.location.href = url.href; // Recarrega com o novo filtro
+// }
+
+
+
 function fnMontarCardProduto(produto){
     let cartao = `
         <div class="col-12 col-sm-12 col-md-6 col-lg-4 mb-3">
