@@ -1,5 +1,7 @@
 const express = require('express')
 const app = express()
+const cors = require('cors')
+app.use(cors())
 
 
 // Indica que todas as requisições podem receber Body em JSON. A partir disso,
@@ -8,8 +10,8 @@ const app = express()
 
 app.use(express.json())
 
-app.get('/',function(req,res){
-    res.setHeader('Access-Control-Allow-Origin','*')
+app.get('/', function (req, res) {
+    // res.setHeader('Access-Control-Allow-Origin','*')
     res.send('MukaInfo')
 })
 
@@ -31,8 +33,8 @@ let conexao = mysql.createConnection({
     database: "gutoxa27_bd_loja"
 })
 
-conexao.connect(function(erro){
-    if (erro){
+conexao.connect(function (erro) {
+    if (erro) {
         console.log("Deu ruim na conexao \n");
         throw erro;
     } else {
@@ -65,40 +67,55 @@ conexao.connect(function(erro){
 
 //Read All - [GET] / produtos
 app.get("/produtis", function (req, res) {
-    res.setHeader('Access-Control-Allow-Origin','*')
+    // res.setHeader('Access-Control-Allow-Origin','*')
     //res.send(lista_produtos)
-    conexao.query("select * from produtos", function (erro, lista_produtos, campos){
+    conexao.query("select * from produtos", function (erro, lista_produtos, campos) {
         console.log(lista_produtos);
         res.send(lista_produtos)
     })
 })
 
 app.get("/produtis/:categoria", function (req, res) {
-    res.setHeader('Access-Control-Allow-Origin','*')
+    // res.setHeader('Access-Control-Allow-Origin','*')
     //res.send(lista_produtos)
     const categoria = req.params.categoria
-    conexao.query(`select * from produtos where categoria = '${categoria}'`, function (erro, dados, campos){
-               res.send(dados)
+    conexao.query(`select * from produtos where categoria = '${categoria}'`, function (erro, dados, campos) {
+        res.send(dados)
     })
 })
 
+
 app.get("/produtis/:categoria/:ordem", function (req, res) {
-    res.setHeader('Access-Control-Allow-Origin','*')
+    // res.setHeader('Access-Control-Allow-Origin','*')
     //res.send(lista_produtos)
     const categoria = req.params.categoria
-    conexao.query(`select * from produtos where categoria = '${categoria}'`, function (erro, dados, campos){
-               res.send(dados)
+    const ordem = req.params.ordem
+
+    conexao.query(`select * from produtos where categoria = '${categoria}' order by ${ordem}`, function (erro, dados, campos) {
+        res.send(dados)
     })
 })
 
 
 app.get("/unidades", function (req, res) {
-    res.setHeader('Access-Control-Allow-Origin','*')
+    // res.setHeader('Access-Control-Allow-Origin','*')
     //res.send(lista_produtos)
-    conexao.query("select * from unidades", function (erro, unidades, campos){
+    conexao.query("select * from unidades", function (erro, unidades, campos) {
         console.log(unidades);
         res.send(unidades)
     })
+})
+
+app.post("/produtis/", function (req, res) {
+    const { titulo, preco, descricao, avaliacao, foto, categoria } = req.body;
+    conexao.query(`INSERT INTO produtos(titulo, foto, descricao, preco, avaliacao, categoria)
+        values('${titulo}','${preco}','${descricao}','${avaliacao}','${foto}','${categoria}')`,
+        function(erro, resultado){
+        if(erro) {
+            res.json(erro);
+        }
+            res.send(resultado.insertId);
+    });
 })
 
 

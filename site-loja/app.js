@@ -1,12 +1,21 @@
 function fnCarregarDados(){
     const parametros = new URLSearchParams(window.location.search)
     const existe_categoria = parametros.has('categoria')
+    const existe_ordem = parametros.has('ordem')
 
     let rota_categoria = ""
     if (existe_categoria){
         rota_categoria = parametros.get('categoria') + "/"
     }
-    fetch('http://localhost:3001/produtis/' + rota_categoria,{method:'GET'})
+    let rota_ordem = ""
+    if (existe_ordem){
+        rota_ordem = parametros.get('ordem')+ "/"
+    }
+
+    console.log(rota_ordem)
+    console.log(rota_categoria)
+    
+    fetch('http://localhost:3001/produtis/' + rota_categoria + rota_ordem,{method:'GET'})
     .then(response => response.json())
     .then((produtis)=>{
         produtis.forEach(produti => {
