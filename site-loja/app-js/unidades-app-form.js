@@ -34,6 +34,7 @@ function fnCadastrarProdutos() {
 .then(resposta => resposta.json())
 .then((dados)=>{
     fnLimparCampos()
+    toastt()
     console.log(dados)
 })
 .catch(erro => console.log(erro.message))
@@ -50,4 +51,9 @@ btn_salvar.addEventListener("click", function () {
     fnCadastrarProdutos()
 })
 
+const toast = document.getElementById("liveToast")
 
+function toastt(){
+    const toastBootstrap = bootstrap.Toast.getOrCreateInstance(toast)
+    toastBootstrap.show()
+}

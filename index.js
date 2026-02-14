@@ -1,6 +1,10 @@
 const express = require('express')
 const app = express()
+const bodyParser = require('body-parser')
+app.use(bodyParser.urlencoded({ extended:true}))
+app.use(bodyParser.json())
 const cors = require('cors')
+
 app.use(cors())
 
 
@@ -69,6 +73,7 @@ conexao.connect(function (erro) {
 app.get("/produtis", function (req, res) {
     // res.setHeader('Access-Control-Allow-Origin','*')
     //res.send(lista_produtos)
+
     conexao.query("select * from produtos", function (erro, lista_produtos, campos) {
         console.log(lista_produtos);
         res.send(lista_produtos)
@@ -107,9 +112,8 @@ app.get("/unidades", function (req, res) {
 })
 
 app.post("/produtis/", function (req, res) {
-    const { titulo, preco, descricao, avaliacao, foto, categoria } = req.body;
-    conexao.query(`INSERT INTO produtos(titulo, foto, descricao, preco, avaliacao, categoria)
-        values('${titulo}','${preco}','${descricao}','${avaliacao}','${foto}','${categoria}')`,
+    const data = req.body;
+    conexao.query(`INSERT INTO produtos set ?`, [data],
         function(erro, resultado){
         if(erro) {
             res.json(erro);
@@ -119,9 +123,8 @@ app.post("/produtis/", function (req, res) {
 })
 
 app.post("/unidades/", function (req, res) {
-    const { nome_da_loja, telefone, email, endereco, latitude, longitude,foto } = req.body;
-    conexao.query(`INSERT INTO unidades(nome_da_loja, telefone, email, endereco, latitude, longitude,foto)
-        values('${nome_da_loja}','${telefone}','${email}','${endereco}','${latitude}','${longitude}','${foto}')`,
+    const data = req.body;
+    conexao.query(`INSERT INTO unidades set?`,[data],
         function(erro, resultado){
         if(erro) {
             res.json(erro);
@@ -130,7 +133,22 @@ app.post("/unidades/", function (req, res) {
     });
 })
 
-
+app.post("/login/",function (req, res) {
+    const usuario = req.body.usuario
+    const senha = req.body.senha
+    conexao.query(`select * from usuarios where usuario = '${usuario}' and senha='${senha}'`, function (erro,resultado,campos){
+        if (erro){
+            res.send(erro)
+        }else{
+            if (resultado.length > 0){
+                res.status(200).send('sucesso!')
+            } else {
+                res.status(401).send('Inválido')
+            }
+        }
+    })
+})
+   
 
 
 

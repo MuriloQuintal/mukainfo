@@ -33,7 +33,9 @@ function fnCadastrarProdutos() {
 .then(resposta => resposta.json())
 .then((dados)=>{
     fnLimparCampos()
+    fnMensagemSalvar()
     console.log(dados)
+
 })
 .catch(erro => console.log(erro.message))
 }
@@ -45,8 +47,24 @@ foto.addEventListener("blur", function () {
     fnAlterarFoto()
 })
 
+
+
 btn_salvar.addEventListener("click", function () {
     fnCadastrarProdutos()
+
 })
 
+const toast = document.getElementById("liveToast")
+
+function fnMensagemSalvar(){
+    const toastBootstrap = bootstrap.Toast.getOrCreateInstance(toast)
+    toastBootstrap.show()
+
+    // var toastEllist = [].slice.call(document.querySelectorAll('.toast'))
+    // var toastList = toastEllist.map(function (toastEL) {
+    //     return new bootstrap.Toast(toastEl)
+    // })
+    // toastList.forEach(toast => toast.show())
+}
+  
 
