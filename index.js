@@ -141,14 +141,27 @@ app.post("/login/",function (req, res) {
             res.send(erro)
         }else{
             if (resultado.length > 0){
-                res.status(200).send('sucesso!')
+                res.sendStatus(200)
             } else {
-                res.status(401).send('Inválido')
+                res.sendStatus(401)
             }
         }
     })
 })
    
+
+app.post("/usuarios/", function (req, res) {
+    const data = req.body;
+console.log(data)
+
+    conexao.query(`INSERT INTO usuarios set ?`,[data],
+        function(erro, resultado){
+        if(erro) {
+            res.sendStatus(401);
+        }
+            res.sendStatus(200);
+    });
+})
 
 
 
